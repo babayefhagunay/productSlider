@@ -1,0 +1,49 @@
+document.addEventListener("DOMContentLoaded", function () {
+    const card = document.getElementById("div");
+    card.classList.add("card");
+
+    let photos = [];
+    let i = 0;
+    const auto = true;
+    const intervalTime = 5000;
+    let slideInterval;
+
+    fetch('https://fakestoreapi.com/products')
+        .then((res) => res.json())
+        .then((json) => {
+            photos = json.map(a => a.image);
+            showImage(i); 
+        })
+
+    const icons = document.createElement("div");
+    icons.classList.add("icons");
+    card.appendChild(icons);
+
+    const leftIcon = document.querySelector(".fa-arrow-left");
+    leftIcon.addEventListener("click", back);
+
+    const rightIcon = document.querySelector(".fa-arrow-right");
+    rightIcon.addEventListener("click", next);
+
+    function showImage(index) {
+        const main_img = document.createElement("img");
+        main_img.src = photos[index];
+        main_img.classList.add("photos");
+        card.innerHTML = ''; 
+        card.appendChild(main_img);
+    }
+    function next() {
+        i++;
+        if (i >= photos.length) {
+            i = 0;
+        }
+        showImage(i);
+    }
+    function back() {
+        i--;
+        if (i < 0) {
+            i= photos.length - 1;
+        }
+        showImage(i);
+    }
+});
