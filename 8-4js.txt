@@ -4,9 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let photos = [];
     let i = 0;
-    const auto = true;
-    const intervalTime = 5000;
-    let slideInterval;
 
     fetch('https://fakestoreapi.com/products')
         .then((res) => res.json())
